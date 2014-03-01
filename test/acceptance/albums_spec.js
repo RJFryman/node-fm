@@ -43,16 +43,16 @@ describe('albums', function(){
   });
 
   describe('POST /albums', function(){
-     it('should create a new album and send user back to home', function(done){
-       var filename = __dirname + '/../fixtures/euro1.jpg';
-       request(app)
-       .post('/albums')
-       .attach('cover', filename)
-       .field('title', 'Test Thriller')
-       .field('artist', 'Michael Jackson')
-       .field('genre', 'Pop')
-       .field('year', '1983')
-       .expect(302, done);
+    it('should create a new album and send user back to home', function(done){
+      var filename = __dirname + '/../fixtures/euro1.jpg';
+      request(app)
+      .post('/albums')
+      .attach('cover', filename)
+      .field('title', 'Test Thriller')
+      .field('artist', 'Michael Jackson')
+      .field('genre', 'Pop')
+      .field('year', '1983')
+      .expect(302, done);
     });
   });
 
