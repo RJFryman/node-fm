@@ -59,8 +59,8 @@ Album.findById = function(id, fn){
 };
 
 Album.findByTitle = function(title, fn){
-  albums.findOne({title:title}, function(err, record){
-    fn(record);
+  albums.find({title:title}).toArray(function(err, records){
+    fn(records);
   });
 };
 
