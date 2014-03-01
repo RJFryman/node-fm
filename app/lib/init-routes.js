@@ -13,9 +13,13 @@ module.exports = function(req, res, next){
 };
 
 function load(app, fn){
-  var albums = require('../routes/albums');
+  var home = require('../routes/home');
+  var album = require('../routes/album');
+  var artist = require('../routes/artist');
 
-  app.get('/', d, albums.index);
+  app.get('/', d, home.index);
+  app.get('/album', d, album.index);
+  app.get('/artist', d, artist.index);
   console.log('Routes Loaded');
   fn();
 }
