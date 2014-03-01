@@ -15,6 +15,13 @@ function Album(album){
   this.songs = [];
 }
 
+Album.prototype.makeDirectory = function(){
+  var dirname = this.title.replace(/\s/g, '').toLowerCase();
+  var abspath = __dirname + '/../static';
+  var relpath = '/audios/' + dirname;
+  fs.mkdirSync(abspath + relpath);
+};
+
 Album.prototype.addCover = function(oldname){
   var filename = this.title.replace(/\s/g, '').toLowerCase();
   var abspath = __dirname + '/../static';
@@ -74,4 +81,13 @@ Album.deleteById = function(id, fn){
   albums.remove({_id:_id}, function(err, count){
     fn(count);
   });
+};
+
+Album.prototype.addSong = function(oldpath, filename){
+  var dirname = this.title.replace(/\s/g, '').toLowerCase();
+  var abspath = __dirname + '/../static';
+  var relpath = '/audios/' + dirname + '/' + filename;
+
+  fs.renameSync(oldpath, abspath + relpath);
+  this.songs.push(relpath);
 };
