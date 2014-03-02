@@ -36,6 +36,8 @@ html(class='no-js', lang='en')
                 label Tags
                 input(type='text', name='tags')
                 input(type='hidden', name='albumId', value=album._id)
+                input(type='hidden', name='album', value=album.title)
+                input(type='hidden', name='artist', value=album.artist)
               .small-3.columns
                 label Song File
                 input(type='file', name='song')

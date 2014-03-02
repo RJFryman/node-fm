@@ -13,6 +13,8 @@ function Song(song){
   this.tags = song.tags.split(',').map(function(tag){return tag.trim();});
   this.tags = _.compact(this.tags);
   this.albumId = song.albumId || '';
+  this.album = song.album;
+  this.artist = song.artist;
 }
 
 Song.prototype.save = function(fn){
