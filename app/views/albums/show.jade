@@ -35,7 +35,7 @@ html(class='no-js', lang='en')
               .small-3.columns
                 label Tags
                 input(type='text', name='tags')
-                input(type='text', name='albumId', value=album._id)
+                input(type='hidden', name='albumId', value=album._id)
               .small-3.columns
                 label Song File
                 input(type='file', name='song')
