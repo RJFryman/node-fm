@@ -14,9 +14,13 @@ exports.create = function(req, res){
   var s1 = new Song(req.body);
   Album.findById(req.body.albumId, function(album){
     album = _.extend(album, Album.prototype);
-    album.addSong(s1._id);
     s1.addFile(req.files.song.path, req.files.song.name, function(){
-      res.redirect('/albums/'+req.body.albumId);
+      s1.save(function(){
+        album.addSong(s1._id);
+        album.update(function(){
+          res.redirect('/albums/'+req.body.albumId);
+        });
+      });
     });
   });
 };
@@ -28,8 +32,10 @@ exports.destroy = function(req, res){
     Album.findById(albumId, function(album){
       album = _.extend(album, Album.prototype);
       album.removeSong(songId);
-      Song.deleteById(songId, function(){
-        res.redirect('/albums/'+albumId);
+      album.update(function(){
+        Song.deleteById(songId, function(){
+          res.redirect('/albums/'+albumId);
+        });
       });
     });
   });

@@ -16,6 +16,7 @@ exports.show = function(req, res){
 };
 
 exports.create = function(req, res){
+  console.log(req.body);
   album = new Album(req.body);
   album.addCover(req.files.cover.path);
   album.makeDirectory();
