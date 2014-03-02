@@ -1,5 +1,6 @@
 'use strict';
 
+var Song = require('../models/song');
 var Album = require('../models/album');
 var album;
 
@@ -10,8 +11,10 @@ exports.index = function(req, res){
 };
 
 exports.show = function(req, res){
-  Album.findById(req.params.id, function(album){
-    res.render('albums/show', {album:album, title:album.title});
+  Song.findAll(function(songs){
+    Album.findById(req.params.id, function(album){
+      res.render('albums/show', {songs:songs, album:album, title:album.title});
+    });
   });
 };
 
