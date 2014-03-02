@@ -19,7 +19,7 @@ describe('Song', function(){
   });
 
   beforeEach(function(done){
-    var testdir = __dirname + '/../../app/static/audios/testkjdhsfgjkdhgkj*';
+    var testdir = __dirname + '/../../app/static/audios/test*';
     var cmd = 'rm -rf ' + testdir;
     exec(cmd, function(){
       var ogFile = __dirname + '/../fixtures/euro.jpg';

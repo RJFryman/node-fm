@@ -19,7 +19,7 @@ exports.create = function(req, res){
   album = new Album(req.body);
   album.addCover(req.files.cover.path);
   album.makeDirectory();
-  album.insert(function(){
+  album.insert(function(album){
     res.redirect('/');
   });
 };

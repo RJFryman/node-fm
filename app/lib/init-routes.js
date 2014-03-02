@@ -22,14 +22,15 @@ function load(app, fn){
   app.get('/', d, home.index);
   app.get('/albums', d, albums.index);
   app.get('/albums/:id', d, albums.show);
-//  app.get('/artists', d, artists.index);
-  app.post('/songs', d, songs.create);
-  app.del('/songs', d, songs.destroy);
-//  app.get('/artists/:name', d, artists.show);
   app.post('/albums', d, albums.create);
   app.post('/albums/:id', d, albums.addSong);
   app.put('/albums/:id', d, albums.update);
   app.del('/albums/:id', d, albums.destroy);
+  app.get('/songs', d, songs.index);
+  app.post('/songs', d, songs.create);
+  app.del('/songs/:id', d, songs.destroy);
+//  app.get('/artists', d, artists.index);
+//  app.get('/artists/:name', d, artists.show);
   console.log('Routes Loaded');
   fn();
 }

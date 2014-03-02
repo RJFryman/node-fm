@@ -2,19 +2,35 @@
 
 var Song = require('../models/song');
 var Album = require('../models/album');
+var _ = require('lodash');
 
 exports.index = function(req, res){
   Song.findAll(function(songs){
-    console.log(songs);
-    res.send(songs);
+    res.send({songs:songs});
   });
 };
 
 exports.create = function(req, res){
-  console.log(req.body);
-  //var song = new Song(req.body);
+  var s1 = new Song(req.body);
   Album.findById(req.body.albumId, function(album){
-   
+    album = _.extend(album, Album.prototype);
+    album.addSong(s1._id);
+    s1.addFile(req.files.song.path, req.files.song.name, function(){
+      res.redirect('/albums/'+req.body.albumId);
+    });
   });
-    
+};
+
+exports.destroy = function(req, res){
+  var songId = req.params.id;
+  Song.findById(songId, function(song){
+    var albumId = song.albumId;
+    Album.findById(albumId, function(album){
+      album = _.extend(album, Album.prototype);
+      album.removeSong(songId);
+      Song.deleteById(songId, function(){
+        res.redirect('/albums/'+albumId);
+      });
+    });
+  });
 };

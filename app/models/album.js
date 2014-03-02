@@ -6,6 +6,7 @@ var albums = global.nss.db.collection('albums');
 var fs = require('fs');
 var path = require('path');
 var Mongo = require('mongodb');
+var _ = require('lodash');
 
 function Album(album){
   this.title = album.title;
@@ -85,4 +86,10 @@ Album.deleteById = function(id, fn){
 
 Album.prototype.addSong = function(id){
   this.songs.push(id);
+};
+
+Album.prototype.removeSong = function(id){
+  _.remove(this.songs, function(s){
+    return s === id;
+  });
 };

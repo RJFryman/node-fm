@@ -8,6 +8,7 @@ var fs = require('fs');
 var Album = require('./album');
 
 function Song(song){
+  console.log(song);
   this.title = song.title;
   this.tags = song.tags.split(',').map(function(tag){return tag.trim();});
   this.tags = _.compact(this.tags);
@@ -34,13 +35,14 @@ Song.deleteById = function(id, fn){
 };
 
 Song.prototype.addFile = function(oldpath, filename, fn){
+  var self = this;
   Album.findById(this.albumId.toString(), function(album){
     var dirname = album.title.replace(/\s/g, '').toLowerCase();
     var abspath = __dirname + '/../static';
     var relpath = '/audios/' + dirname + '/' + filename;
     fs.renameSync(oldpath, abspath + relpath);
 
-    this.file = relpath;
+    self.file = relpath;
 
     fn();
   });

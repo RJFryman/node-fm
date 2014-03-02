@@ -91,8 +91,26 @@ describe('Album', function(){
       var oldname = __dirname + '/../fixtures/euro1.jpg';
       a1.addCover(oldname);
       a1.insert(function(){
-        a1.addSong(s1._id.toString(), function(){
-          expect(a1.songs[0]).to.equal('/audios/testthriller/eurosong.jpg');
+        s1.save(function(song){
+          a1.addSong(s1._id.toString());
+          expect(a1.songs[0]).to.equal(song._id.toString());
+          done();
+        });
+      });
+    });
+  });
+
+  describe('#removeSong', function(){
+    it('should remove a song from an album', function(done){
+      var a1 = new Album({title:'Test Thriller', artist:'Michael Jackson', genre:'Pop', year:'1983'});
+      var s1 = new Song({title:'Beat It', tags:'Beatin It'});
+      var oldname = __dirname + '/../fixtures/euro1.jpg';
+      a1.addCover(oldname);
+      a1.insert(function(){
+        s1.save(function(song){
+          a1.addSong(s1._id.toString());
+          a1.removeSong(s1._id.toString());
+          expect(a1.songs).to.have.length(0);
           done();
         });
       });
