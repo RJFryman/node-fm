@@ -83,11 +83,6 @@ Album.deleteById = function(id, fn){
   });
 };
 
-Album.prototype.addSong = function(oldpath, filename){
-  var dirname = this.title.replace(/\s/g, '').toLowerCase();
-  var abspath = __dirname + '/../static';
-  var relpath = '/audios/' + dirname + '/' + filename;
-
-  fs.renameSync(oldpath, abspath + relpath);
-  this.songs.push(relpath);
+Album.prototype.addSong = function(id){
+  this.songs.push(id);
 };

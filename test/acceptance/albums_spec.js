@@ -11,7 +11,7 @@ describe('albums', function(){
 
   before(function(done){
     request(app)
-    .get('/')
+    .get('/albums')
     .end(function(err, res){
       Album = require('../../app/models/album');
       done();
@@ -42,6 +42,24 @@ describe('albums', function(){
     });
   });
 
+  describe('GET /albums/:id', function(){
+    it('should display the specific album with that id', function(done){
+      var a1 = new Album({title:'Test Thriller', artist:'Michael Jackson', genre:'Pop', year:'1983'});
+      var a2 = new Album({title:'Test Off the Wall', artist:'Michael Jackson', genre:'Pop', year:'1981'});
+      var a3 = new Album({title:'Test History', artist:'Michael Jackson', genre:'Pop', year:'1993'});
+
+      a1.insert(function(){
+        a2.insert(function(){
+          a3.insert(function(){
+            request(app)
+            .get('/albums/'+a1._id.toString())
+            .expect(200, done);
+          });
+        });
+      });
+    });
+  });
+
   describe('POST /albums', function(){
     it('should create a new album and send user back to home', function(done){
       var filename = __dirname + '/../fixtures/euro1.jpg';
@@ -53,6 +71,30 @@ describe('albums', function(){
       .field('genre', 'Pop')
       .field('year', '1983')
       .expect(302, done);
+    });
+  });
+
+  /*describe('PUT /albums/:id', function(){
+    it('should update an album', function(done){
+
+    });
+  });*/
+
+  describe('DEL /albums/:id', function(){
+    it('should delete an album', function(done){
+      var a1 = new Album({title:'Test Thriller', artist:'Michael Jackson', genre:'Pop', year:'1983'});
+      var a2 = new Album({title:'Test Off the Wall', artist:'Michael Jackson', genre:'Pop', year:'1981'});
+      var a3 = new Album({title:'Test History', artist:'Michael Jackson', genre:'Pop', year:'1993'});
+
+      a1.insert(function(){
+        a2.insert(function(){
+          a3.insert(function(){
+            request(app)
+            .del('/albums/'+a1._id.toString())
+            .expect(302, done);
+          });
+        });
+      });
     });
   });
 

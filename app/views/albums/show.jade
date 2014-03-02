@@ -1,0 +1,50 @@
+doctype html
+//[if IE 9]><html class="lt-ie10" lang="en" > <![endif]
+html(class='no-js', lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title= title
+    link(rel='stylesheet', href='/css/normalize.css')
+    link(rel='stylesheet', href='/css/foundation.css')
+    link(rel='stylesheet', href='/less/app.css')
+    script(src='/js/vendor/modernizr.js')
+  body
+    .row
+      .small-12.columns
+        h1=title
+    .row
+      .small-6.columns
+        h2=album.artist
+        h3.hide.albumId=album._id
+      .small-2.columns
+        a.button.tiny.radius(href='/') Back to all songs
+      .small-2.columns
+        a.button.tiny.radius(href='/albums') Back to all albums
+      .small-2.columns
+        button.tiny.raduius#toggle Add Song
+    .row
+      .small-12.columns
+        form.hide#hidden(action='/songs', method='post', enctype='multipart/form-data')
+          fieldset
+            legend Add Song
+            .row
+              .small-3.columns
+                label Title
+                input(type='text', name='title')
+              .small-3.columns
+                label Tags
+                input(type='text', name='tags')
+                button(type='text', name='albumId').hidden=album._id
+              .small-3.columns
+                label Song File
+                input(type='file', name='file')
+              .small-3.columns
+                button.small.radius Add Song
+
+    script(src='/js/vendor/jquery.js')
+    script(src='/js/vendor/foundation.js')
+    script(src='/js/vendor/lodash.js')
+    script(src='/js/vendor/moment.js')
+    script(src='/js/source/main.js')
+

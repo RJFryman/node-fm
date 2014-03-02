@@ -4,6 +4,8 @@ module.exports = Song;
 var _ = require('lodash');
 var Mongo = require('mongodb');
 var songs = global.nss.db.collection('songs');
+var fs = require('fs');
+var Album = require('./album');
 
 function Song(song){
   this.title = song.title;
@@ -12,7 +14,7 @@ function Song(song){
   this.albumId = song.albumId || '';
 }
 
-Song.prototype.insert = function(fn){
+Song.prototype.save = function(fn){
   songs.save(this, function(err, record){
     fn(record);
   });
@@ -24,10 +26,23 @@ Song.prototype.update = function(fn){
   });
 };
 
-Song.deleteById = function (id, fn){
+Song.deleteById = function(id, fn){
   var _id = new Mongo.ObjectID(id);
   songs.remove({_id:_id}, function(err, count){
     fn(count);
+  });
+};
+
+Song.prototype.addFile = function(oldpath, filename, fn){
+  Album.findById(this.albumId.toString(), function(album){
+    var dirname = album.title.replace(/\s/g, '').toLowerCase();
+    var abspath = __dirname + '/../static';
+    var relpath = '/audios/' + dirname + '/' + filename;
+    fs.renameSync(oldpath, abspath + relpath);
+
+    this.file = relpath;
+
+    fn();
   });
 };
 

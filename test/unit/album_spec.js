@@ -5,6 +5,7 @@ var expect = require('chai').expect;
 var fs = require('fs');
 var exec = require('child_process').exec;
 var Album;
+var Song;
 
 describe('Album', function(){
 
@@ -12,6 +13,7 @@ describe('Album', function(){
     var initMongo = require('../../app/lib/init-mongo');
     initMongo.db(function(){
       Album = require('../../app/models/album');
+      Song = require('../../app/models/song');
       done();
     });
   });
@@ -85,13 +87,14 @@ describe('Album', function(){
   describe('#addSong', function(){
     it('should add a song to an album', function(done){
       var a1 = new Album({title:'Test Thriller', artist:'Michael Jackson', genre:'Pop', year:'1983'});
+      var s1 = new Song({title:'Beat It', tags:'Beatin It'});
       var oldname = __dirname + '/../fixtures/euro1.jpg';
       a1.addCover(oldname);
       a1.insert(function(){
-        var imgpath = __dirname + '../fixtures/euro2.jpg';
-        a1.addSong(imgpath, 'eurosong.jpg');
-        expect(a1.songs[0]).to.equal('/audios/testthriller/eurosong.jpg');
-        done();
+        a1.addSong(s1._id.toString(), function(){
+          expect(a1.songs[0]).to.equal('/audios/testthriller/eurosong.jpg');
+          done();
+        });
       });
     });
   });
@@ -132,9 +135,12 @@ describe('Album', function(){
       });
 
       it('should find by album title', function(done){
-        Album.findByTitle('Test Thriller', function(record){
-          expect(record.title).to.equal('Test Thriller');
-          done();
+        var a5 = new Album({title:'Test Thriller', artist:'Dudley Dooright', genre:'Pop', year:'1983'});
+        a5.insert(function(){
+          Album.findByTitle('Test Thriller', function(records){
+            expect(records).to.have.length(2);
+            done();
+          });
         });
       });
 

@@ -13,6 +13,163 @@ html(class='no-js', lang='en')
     .row
       .small-12.columns
         h1=title
+    .row
+      .small-7.columns
+        &nbsp;
+      .small-3.columns
+        a.button.small.radius(href='/albums') View by Albums
+      .small-2.columns
+        button.small.radius#toggle Add Album
+    .row
+      .small-12.columns
+        form.hide#hidden(action='/albums', method='post',enctype='multipart/form-data')
+          fieldset
+            legend New Album
+            .row
+              .small-2.columns
+                label Artist
+                input(type='text', name='artist')
+              .small-2.columns
+                label Album Title
+                input(type='text', name='title')
+              .small-2.columns
+                label Genre
+                input(type='text', name='genre')
+              .small-2.columns
+                label Release Year
+                input(type='text', name='year')
+              .small-2.columns
+                label Album Art
+                input(type='file', name='cover')
+              .small-2.columns
+                label &nbsp;
+                button.small.radius Add Album
+    .row
+      .small-12.columns#songTableWrapper
+        table#songTable
+          thead
+            th Title
+            th Artist
+            th Album
+            th Tags
+          tbody
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+            tr
+              td Name
+              td Singer
+              td Sweet Tunes
+              td good, bad, ugly
+
+
 
     script(src='/js/vendor/jquery.js')
     script(src='/js/vendor/foundation.js')

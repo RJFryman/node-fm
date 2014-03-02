@@ -19,13 +19,12 @@ describe('Song', function(){
   });
 
   beforeEach(function(done){
-    var testdir = __dirname + '/../../app/static/audios/test*';
+    var testdir = __dirname + '/../../app/static/audios/testkjdhsfgjkdhgkj*';
     var cmd = 'rm -rf ' + testdir;
-
     exec(cmd, function(){
       var ogFile = __dirname + '/../fixtures/euro.jpg';
-      var copyFile = __dirname + '/../fixtures/euro-copy.jpg';
-      fs.createReadStream(ogFile).pipe(fs.createWriteStream(copyFile));
+      var copyFile2 = __dirname + '/../fixtures/copy-2-euro.jpg';
+      fs.createReadStream(ogFile).pipe(fs.createWriteStream(copyFile2));
       global.nss.db.dropDatabase(function(err, result){
         done();
       });
@@ -43,7 +42,6 @@ describe('Song', function(){
       a1.insert(function(){
         var obj = {};
         obj.title = 'Test Song';
-        //obj.file = ;
         obj.tags = 'heavy, drums';
         obj.albumId = a1._id;
         var s1 = new Song(obj);
@@ -54,9 +52,9 @@ describe('Song', function(){
       });
     });
   });
-/*
+
   describe('#addFile', function(){
-    it('should add a song to the Album', function(){
+    it('should add a file to the song', function(done){
       var alb = {};
       alb.title = 'Test Album';
       alb.artist = 'Test Artist';
@@ -68,16 +66,17 @@ describe('Song', function(){
         obj.title = 'Test Song';
         obj.tags = 'heavy, drums';
         obj.albumId = a1._id;
-        console.log(obj.albumId);
         var s1 = new Song(obj);
-        var oldName = __dirname + '/../fixtures/euro-copy.jpg';
-        s1.addFile(oldName);
-        expect(s1.file).to.equal('/audios/testnodefmsongs/song.jpg');
+        var oldName = __dirname + '/../fixtures/copy-2-euro.jpg';
+        s1.addFile(oldName, 'song.jpg', function(){
+          expect(s1.file).to.equal('/audios/testalbum/song.jpg');
+          done();
+        });
       });
-    })#
+    });
   });
-*/
-  describe('#insert', function(){
+
+  describe('#save', function(){
     it('should add a song to the album', function(){
       var alb = {};
       alb.title = 'Test Album';
@@ -85,28 +84,27 @@ describe('Song', function(){
       alb.genre = 'Beef Stock';
       alb.year = 1978;
       var a1 = new Album(alb);
+      a1.makeDirectory();
       a1.insert(function(){
         var obj = {};
         obj.title = 'Test Song';
-        //obj.file = ;
-        obj.tags = 'fuck, suck, bang';
+        obj.tags = 'drums, sitar, bang';
         obj.albumId = a1._id;
         var s1 = new Song(obj);
-        //var oldName = __dirname + '/../fixtures/euro-copy.jpg';
-        s1.insert(function(err){
+        s1.save(function(err){
           expect(s1._id.toString()).to.have.length(24);
         });
       });
     });
 
-    it('should update an existing priority', function(done){
-      var s1 = new Song({title:'Fuck', tags: 'suck, bang'});
+    it('should update an existing song', function(done){
+      var s1 = new Song({title:'Crazy', tags: 'pow, bang'});
 
-      s1.insert(function(){
+      s1.save(function(){
         s1.title = 'High';
         var oldId = s1._id.toString();
         console.log(s1);
-        s1.insert(function(){
+        s1.save(function(){
           Song.findById(oldId, function(song){
             console.log(song);
             expect(song.title).to.equal('High');
@@ -127,14 +125,14 @@ describe('Song', function(){
       alb.year = 1978;
       var a1 = new Album(alb);
       a1.insert(function(){
-        var s1 = new Song({title:'Fuck', tags: 'suck, bang', albumId:a1._id});
-        var s2 = new Song({title:'Suck', tags: 'fuck, bang', albumId:a1._id});
-        var s3 = new Song({title:'Bang', tags: 'suck, fuck', albumId:a1._id});
+        var s1 = new Song({title:'Good Song', tags: 'pow, bang', albumId:a1._id});
+        var s2 = new Song({title:'Great Song', tags: 'bob, bang', albumId:a1._id});
+        var s3 = new Song({title:'Better Song', tags: 'geek, nerd', albumId:a1._id});
 
-        s1.insert(function(){
-          s2.insert(function(){
+        s1.save(function(){
+          s2.save(function(){
             var id = s2.albumId.toString();
-            s3.insert(function(){
+            s3.save(function(){
               Song.findByAlbumId(id, function(songs){
                 expect(songs).to.have.length(3);
                 done();
@@ -153,9 +151,9 @@ describe('Song', function(){
       s2 = new Song({title:'Suck', tags: 'fuck, bang'});
       s3 = new Song({title:'Bang', tags: 'suck, fuck'});
 
-      s1.insert(function(){
-        s2.insert(function(){
-          s3.insert(function(){
+      s1.save(function(){
+        s2.save(function(){
+          s3.save(function(){
             done();
           });
         });
