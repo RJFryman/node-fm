@@ -1,6 +1,10 @@
 'use strict';
 
+var Song = require('../models/song');
+
 exports.index = function(req, res){
-  res.render('home/index', {title: 'Node-FM'});
+  Song.findAll(function(songs){
+    res.render('home/index', {title: 'Node-FM', songs:songs});
+  });
 };
 
