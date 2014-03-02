@@ -8,15 +8,14 @@ var fs = require('fs');
 var Album = require('./album');
 
 function Song(song){
-  console.log(song);
   this.title = song.title;
   this.tags = song.tags.split(',').map(function(tag){return tag.trim();});
   this.tags = _.compact(this.tags);
   this.albumId = song.albumId || '';
 }
 
-Song.prototype.save = function(fn){
-  songs.save(this, function(err, record){
+Song.prototype.insert = function(fn){
+  songs.insert(this, function(err, record){
     fn(record);
   });
 };

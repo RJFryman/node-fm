@@ -76,7 +76,7 @@ describe('Song', function(){
     });
   });
 
-  describe('#save', function(){
+  describe('#insert', function(){
     it('should add a song to the album', function(){
       var alb = {};
       alb.title = 'Test Album';
@@ -91,22 +91,22 @@ describe('Song', function(){
         obj.tags = 'drums, sitar, bang';
         obj.albumId = a1._id;
         var s1 = new Song(obj);
-        s1.save(function(err){
+        s1.insert(function(err){
           expect(s1._id.toString()).to.have.length(24);
         });
       });
     });
+  });
 
+  describe('#update', function(){
     it('should update an existing song', function(done){
       var s1 = new Song({title:'Crazy', tags: 'pow, bang'});
 
-      s1.save(function(){
+      s1.insert(function(){
         s1.title = 'High';
         var oldId = s1._id.toString();
-        console.log(s1);
-        s1.save(function(){
+        s1.update(function(){
           Song.findById(oldId, function(song){
-            console.log(song);
             expect(song.title).to.equal('High');
             expect(song._id.toString()).to.equal(oldId);
             done();
@@ -129,10 +129,10 @@ describe('Song', function(){
         var s2 = new Song({title:'Great Song', tags: 'bob, bang', albumId:a1._id});
         var s3 = new Song({title:'Better Song', tags: 'geek, nerd', albumId:a1._id});
 
-        s1.save(function(){
-          s2.save(function(){
+        s1.insert(function(){
+          s2.insert(function(){
             var id = s2.albumId.toString();
-            s3.save(function(){
+            s3.insert(function(){
               Song.findByAlbumId(id, function(songs){
                 expect(songs).to.have.length(3);
                 done();
@@ -151,9 +151,9 @@ describe('Song', function(){
       s2 = new Song({title:'Suck', tags: 'fuck, bang'});
       s3 = new Song({title:'Bang', tags: 'suck, fuck'});
 
-      s1.save(function(){
-        s2.save(function(){
-          s3.save(function(){
+      s1.insert(function(){
+        s2.insert(function(){
+          s3.insert(function(){
             done();
           });
         });
