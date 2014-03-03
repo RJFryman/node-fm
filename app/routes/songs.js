@@ -34,7 +34,7 @@ exports.destroy = function(req, res){
       album.removeSong(songId);
       album.update(function(){
         Song.deleteById(songId, function(){
-          res.redirect('/albums/'+albumId);
+          res.send({success:true});
         });
       });
     });

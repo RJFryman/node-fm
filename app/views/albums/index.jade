@@ -46,10 +46,11 @@ html(class='no-js', lang='en')
     .row
       .small-12.columns
         each album in albums
-          .albums
+          .albums(data-id=album._id.toString())
             .cover(style='background-image:url("'+album.cover+'")')
             .titles: a(href='/albums/' +album._id)= album.title
             .artists= album.artist
+            .delAlbum Delete Album
 
     script(src='/js/vendor/jquery.js')
     script(src='/js/vendor/foundation.js')

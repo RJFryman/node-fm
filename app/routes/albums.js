@@ -38,7 +38,7 @@ exports.update = function(req, res){
 
 exports.destroy = function(req, res){
   Album.deleteById(req.params.id, function(){
-    res.redirect('/albums');
+    res.send({success:true});
   });
 };
 
