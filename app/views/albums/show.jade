@@ -16,7 +16,6 @@ html(class='no-js', lang='en')
     .row
       .small-6.columns
         h2=album.artist
-        h3.hide.albumId=album._id
       .small-2.columns
         a.button.tiny.radius(href='/') Back to all songs
       .small-2.columns
@@ -25,7 +24,7 @@ html(class='no-js', lang='en')
         button.tiny.raduius#toggle Add Song
     .row
       .small-12.columns
-        form.hide#hidden(action='/songs', method='post', enctype='multipart/form-data')
+        form.hide(action='/songs', method='post', enctype='multipart/form-data')#hidden
           fieldset
             legend Add Song
             .row
