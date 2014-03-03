@@ -9,7 +9,7 @@ html(class='no-js', lang='en')
     link(rel='stylesheet', href='/css/foundation.css')
     link(rel='stylesheet', href='/less/app.css')
     script(src='/js/vendor/modernizr.js')
-  body
+  body(style='background-image:url("/img/audio_wall-wide.jpg")')
     .row
       .small-12.columns
         h1=title
@@ -46,7 +46,7 @@ html(class='no-js', lang='en')
     .row
       .small-12.columns
         each song in songs
-          .songs
+          .songs(style='background-image:url("/img/Gif-Cassette.gif")')
             .title= song.title
             .artist= song.artist
             .album= song.album

@@ -9,7 +9,7 @@ html(class='no-js', lang='en')
     link(rel='stylesheet', href='/css/foundation.css')
     link(rel='stylesheet', href='/less/app.css')
     script(src='/js/vendor/modernizr.js')
-  body
+  body(style='background-image:url("/img/head.jpg")')
     .row
       .small-12.columns
         h1=title
@@ -46,10 +46,10 @@ html(class='no-js', lang='en')
     .row
       .small-12.columns
         each album in albums
-          .album
+          .albums
             .cover(style='background-image:url("'+album.cover+'")')
-            .title: a(href='/albums/' +album._id)= album.title
-            .artist: a(href='/artist/' +album.name)= album.artist
+            .titles: a(href='/albums/' +album._id)= album.title
+            .artists= album.artist
 
     script(src='/js/vendor/jquery.js')
     script(src='/js/vendor/foundation.js')

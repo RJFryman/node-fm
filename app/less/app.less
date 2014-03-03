@@ -2,16 +2,26 @@
 
 body{
   background-color: @bg-color;
+  background-size: cover;
 }
 
+h1{
+  color: white;
+}
+h2{
+  color: white;
+}
 .cover{
   background-size: cover;
-  height: 100px;
-  width: 100px;
+  height: 150px;
+  width: 150px;
+}
+.artists{
+  color: white;
 }
 
-.album{
-  width: 150px;
+.albums{
+  width: 200px;
   float: left;
 }
 
@@ -22,4 +32,40 @@ body{
 
 #songTable{
   width: 100%;
+}
+
+.songs{
+  float: left;
+  background-size: cover;
+  height: 200px;
+  width: 350px;
+  position: relative;
+  margin-right: 100px;
+}
+
+.title{
+  position: absolute;
+  float: left;
+  padding-left: 75px;
+  padding-top: 25px;
+}
+
+.artist{
+  position: absolute;
+  float: left;
+  padding-left: 75px;
+  padding-top: 40px;
+}
+.album{
+  position: absolute;
+  float: right;
+  padding-left: 75px;
+  padding-top: 60px;
+  color: white;
+}
+audio{
+  float: left;
+  padding-top: 110px;
+  padding-right: 50px;
+  padding-left: 5px;
 }
